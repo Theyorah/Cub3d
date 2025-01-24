@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/24 08:23:55 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/24 13:41:25 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,21 @@
 
 # define WIDTH 800
 # define HEIGHT 600
+
+typedef struct	s_win
+{
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		ln;
+	int		ed;
+}				t_win;
+
+typedef struct	s_program
+{
+	void	*mlx;
+	t_win	win;
+}				t_program;
 
 #endif
