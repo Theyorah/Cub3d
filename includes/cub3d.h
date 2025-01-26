@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/24 13:41:25 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/25 17:59:05 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ typedef struct	s_program
 	void	*mlx;
 	t_win	win;
 }				t_program;
+
+void	window_img_pixel(t_win *win, int x, int y, int color);
 
 #endif
