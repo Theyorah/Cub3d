@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/25 17:59:05 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:49:17 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <unistd.h>
 # include <math.h>
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 400
+# define HEIGHT 200
 
 typedef struct	s_win
 {
@@ -42,5 +42,6 @@ typedef struct	s_program
 }				t_program;
 
 void	window_img_pixel(t_win *win, int x, int y, int color);
+int		rgb(int r, int g, int b);
 
 #endif
