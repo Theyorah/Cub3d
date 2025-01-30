@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:04:14 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/30 11:24:39 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:54:58 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,6 @@ int	main(void)
 	t_program	p;
 
 	init_program(&p);
-	p.player.x = 0;
-	p.player.y = 0;
-	p.player.v_x = 0;
-	p.player.v_y = 0;
 	mlx_hook(p.win.win, DESTROY, 0, program_finish, &p);
 	mlx_hook(p.win.win, KEY_PRESSED, 1L<<0, handle_key, &p);
 	mlx_loop_hook(p.mlx, main_loop, &p);

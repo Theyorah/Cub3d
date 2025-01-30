@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/30 11:24:38 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:55:00 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,19 @@ typedef struct	s_win
 	int		ed;
 }				t_win;
 
-typedef struct	s_player
-{
-	int	x;
-	int	y;
-	int	v_x;
-	int	v_y;
-	int	color;
-}				t_player;
+/*typedef struct	s_player*/
+/*{*/
+/*	int	x;*/
+/*	int	y;*/
+/*	int	v_x;*/
+/*	int	v_y;*/
+/*	int	color;*/
+/*}				t_player;*/
 
 typedef struct	s_program
 {
 	void		*mlx;
 	t_win		win;
-	t_player	player;
 }				t_program;
 
 /*------------COLORS------------*/

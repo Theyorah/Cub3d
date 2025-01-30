@@ -6,7 +6,7 @@
 #    By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 09:04:34 by kralison          #+#    #+#              #
-#    Updated: 2025/01/29 14:54:32 by kralison         ###   ########.fr        #
+#    Updated: 2025/01/30 12:59:44 by kralison         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =				cub3D
 
 CC =				gcc
 
-CFLAGS =			-Wall -Werror -Wextra -Iincludes
+CFLAGS =			-Wall -Werror -Wextra -g -Iincludes
 
 SRCS_DIR =			srcs
 
@@ -31,7 +31,10 @@ LIB_DIR =			libft
 LIBFT =				libft/libft.a
 
 SRCS =				\
-					${SRCS_DIR}/cub3d.c\
+					${SRCS_DIR}/cub3d.c \
+					${SRCS_DIR}/colors.c \
+					${SRCS_DIR}/color_utils.c \
+					${SRCS_DIR}/gameloop.c \
 
 OBJS = 				${SRCS:${SRCS_DIR}/%.c=${OBJS_DIR}/%.o}
 

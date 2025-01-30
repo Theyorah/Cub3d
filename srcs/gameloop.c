@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:38:56 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/30 11:24:36 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:54:55 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	handle_key(int keycode, t_program *p)
 
 static void	st_update_logic(t_program *p)
 {
-
+	(void)p;
 }
 
 static void	st_update_rendering(t_program *p)
 {
-
+	(void)p;
 }
 
 int	main_loop(t_program *p)
