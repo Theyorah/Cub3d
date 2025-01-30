@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/29 20:05:43 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:01:59 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,37 @@ typedef struct	s_win
 	int		ed;
 }				t_win;
 
+typedef struct	s_player
+{
+	int	x;
+	int	y;
+	int	v_x;
+	int	v_y;
+	int	color;
+}				t_player;
+
 typedef struct	s_program
 {
-	void	*mlx;
-	t_win	win;
-	int		x;
-	int		y;
+	void		*mlx;
+	t_win		win;
+	t_player	player;
 }				t_program;
+
+/*------------COLORS------------*/
+int		get_r(int color);
+int		get_g(int color);
+int		get_b(int color);
+int		rgb(int r, int g, int b);
+int		shade(double mult, int color);
+int		gradient(double ratio, int pos, int color1, int color2);
+int		invert(int color);
+/*------------------------------*/
 
 void	init_program(t_program *p);
 int		program_finish(t_program *p);
-void	window_img_pixel(t_win *win, int x, int y, int color);
 int		handle_key(int keycode, t_program *p);
+void	put_pixel_win_img(t_win *win, int x, int y, int color);
+void	clear_win_img(t_win *win, int color);
+int		main_loop(t_program *p);
 
 #endif

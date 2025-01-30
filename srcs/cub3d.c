@@ -6,85 +6,11 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:04:14 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/30 07:52:49 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:02:01 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-void	window_img_pixel(t_win *win, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT)
-	{
-		dst = win->addr + (win->ln * y + (win->bpp / 8) * x);
-		*(unsigned int *)dst = color;
-	}
-}
-
-int	rgb(int r, int g, int b)
-{
-	int	color;
-
-	color = r % 256;
-	color <<= 8;
-	color |= g % 256;
-	color <<= 8;
-	color |= b % 256;
-	return (color);
-}
-
-int	get_r(int color)
-{
-	return (color >> 16);
-}
-
-int get_g(int color)
-{
-	return ((color >> 8) & 0xFF);
-}
-
-int	get_b(int color)
-{
-	return (color & 0xFF);
-}
-
-int	shade(double mult, int color)
-{
-	int r;
-	int	g;
-	int	b;
-
-	r = get_r(color) * (1 - mult);
-	g = get_g(color) * (1 - mult);
-	b = get_b(color) * (1 - mult);
-	return (rgb(r, g, b));
-}
-
-int	gradient(int min, int max, int pos, int color1, int color2)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = get_r(color1) * (max - pos) / max + get_r(color2) * pos / max + min;
-	g = get_g(color1) * (max - pos) / max + get_g(color2) * pos / max + min;
-	b = get_b(color1) * (max - pos) / max + get_b(color2) * pos / max + min;
-	return (rgb(r, g, b));
-}
-
-int	invert(int rgb)
-{
-	int	color;
-
-	color = 255 - (rgb >> 16);
-	color <<= 8;
-	color |= 255 - ((rgb << 8) >> 16);
-	color <<= 8;
-	color |= 255 - (rgb & 255);
-	return (color);
-}
 
 void	init_program(t_program *p)
 {
@@ -120,11 +46,29 @@ int	program_finish(t_program *p)
 	return (0);
 }
 
-int	handle_key(int keycode, t_program *p)
+void	put_pixel_win_img(t_win *win, int x, int y, int color)
 {
-	if (keycode == ESC_KEY)
-		program_finish(p);
-	return (0);
+	char	*dst;
+
+	if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT)
+	{
+		dst = win->addr + (win->ln * y + (win->bpp / 8) * x);
+		*(unsigned int *)dst = color;
+	}
+}
+
+void	clear_win_img(t_win *win, int color)
+{
+	char	*dst;
+	int		i;
+
+	i = WIDTH * HEIGHT;
+	dst = win->addr;
+	while (--i)
+	{
+		*(unsigned int *)dst = color;
+		dst += win->bpp / 8;
+	}
 }
 
 int	main(void)
@@ -132,9 +76,13 @@ int	main(void)
 	t_program	p;
 
 	init_program(&p);
-	mlx_put_image_to_window(p.mlx, p.win.win, p.win.img, 0, 0);
+	p.player.x = 0;
+	p.player.y = 0;
+	p.player.v_x = 0;
+	p.player.v_y = 0;
 	mlx_hook(p.win.win, DESTROY, 0, program_finish, &p);
 	mlx_hook(p.win.win, KEY_PRESSED, 1L<<0, handle_key, &p);
+	mlx_loop_hook(p.mlx, main_loop, &p);
 	mlx_loop(p.mlx);
 	return (0);
 }
