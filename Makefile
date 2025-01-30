@@ -6,11 +6,11 @@
 #    By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 09:04:34 by kralison          #+#    #+#              #
-#    Updated: 2025/01/23 12:51:46 by kralison         ###   ########.fr        #
+#    Updated: 2025/01/29 14:54:32 by kralison         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =				cub3d
+NAME =				cub3D
 
 CC =				gcc
 
