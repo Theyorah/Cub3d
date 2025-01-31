@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:17:01 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/30 12:41:10 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/31 09:23:10 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_b(int color)
 
 int	rgb(int r, int g, int b)
 {
-	int color;
+	int	color;
 
 	color = r % 256;
 	color <<= 8;
