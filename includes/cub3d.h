@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/31 09:19:45 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/31 09:26:13 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@
 # define RIGHT_KEY 65363
 # define ESC_KEY 65307
 
-
-typedef struct	s_win
+typedef struct s_win
 {
 	void	*win;
 	void	*img;
@@ -45,7 +44,7 @@ typedef struct	s_win
 	int		ed;
 }				t_win;
 
-typedef struct	s_program
+typedef struct s_program
 {
 	void		*mlx;
 	t_win		win;
