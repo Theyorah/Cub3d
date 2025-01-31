@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/30 13:58:33 by kralison         ###   ########.fr       */
+/*   Updated: 2025/01/31 08:29:27 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,12 @@ typedef struct	s_win
 	int		ed;
 }				t_win;
 
-/*typedef struct	s_player*/
-/*{*/
-/*	int	x;*/
-/*	int	y;*/
-/*	int	v_x;*/
-/*	int	v_y;*/
-/*	int	color;*/
-/*}				t_player;*/
-
 typedef struct	s_program
 {
 	void		*mlx;
 	t_win		win;
 }				t_program;
 
-/*------------COLORS------------*/
 int		get_r(int color);
 int		get_g(int color);
 int		get_b(int color);
@@ -68,8 +58,6 @@ int		rgb(int r, int g, int b);
 int		shade(double mult, int color);
 int		gradient(double ratio, int pos, int color1, int color2);
 int		invert(int color);
-/*------------------------------*/
-
 void	init_program(t_program *p);
 int		program_finish(t_program *p);
 int		handle_key(int keycode, t_program *p);
