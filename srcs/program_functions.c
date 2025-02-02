@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 08:00:48 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/31 09:19:54 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/02 11:16:22 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	st_error_occured(t_program *p, const char *str)
 
 static void	st_init_your_thing(t_program *p, int ac, char **av)
 {
+	(void)ac;
+	(void)av;
 	(void)p;
 }
 
@@ -31,6 +33,12 @@ static void	st_free_your_thing(t_program *p)
 
 void	init_program(t_program *p, int ac, char **av)
 {
+	p->w = 0;
+	p->a = 0;
+	p->s = 0;
+	p->d = 0;
+	p->right = 0;
+	p->left = 0;
 	p->error = 0;
 	p->win.win = NULL;
 	p->win.img = NULL;
