@@ -6,7 +6,7 @@
 #    By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 09:04:34 by kralison          #+#    #+#              #
-#    Updated: 2025/01/31 08:38:52 by kralison         ###   ########.fr        #
+#    Updated: 2025/02/02 11:20:34 by kralison         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS =				\
 					${SRCS_DIR}/cub3d.c \
 					${SRCS_DIR}/gameloop.c \
 					${SRCS_DIR}/program_functions.c \
+					${SRCS_DIR}/temp_external_file.c \
 
 OBJS = 				${SRCS:${SRCS_DIR}/%.c=${OBJS_DIR}/%.o}
 

@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:04:14 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 11:12:54 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:18:44 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,14 @@ static int	st_key_released(int keycode, t_program *p)
 	return (0);
 }
 
-void	put_pixel_win_img(t_win *win, int x, int y, int color)
+t_entity	entity(double x, double y, int size)
 {
-	char	*dst;
+	t_entity	t;
 
-	if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT)
-	{
-		dst = win->addr + (win->ln * y + (win->bpp / 8) * x);
-		*(unsigned int *)dst = color;
-	}
+	t.x = x;
+	t.y = y;
+	t.size = size;
+	return (t);
 }
 
 void	clear_win_img(t_win *win, int color)
