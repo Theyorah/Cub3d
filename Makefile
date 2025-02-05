@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+         #
+#    By: frakotov <frakotov@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 09:04:34 by kralison          #+#    #+#              #
-#    Updated: 2025/01/31 08:38:52 by kralison         ###   ########.fr        #
+#    Updated: 2025/02/05 12:32:33 by frakotov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ LIB_DIR =			libft
 LIBFT =				libft/libft.a
 
 SRCS =				\
-					${SRCS_DIR}/colors.c \
+					$(SRCS_DIR)/i_parse_nap.c \
+					$(SRCS_DIR)/init.c \
+					$(SRCS_DIR)/colors.c \
 					${SRCS_DIR}/color_utils.c \
 					${SRCS_DIR}/cub3d.c \
 					${SRCS_DIR}/gameloop.c \

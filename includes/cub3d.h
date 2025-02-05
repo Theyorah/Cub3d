@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: frakotov <frakotov@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 11:14:54 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:40:52 by frakotov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_program
 	bool		d;
 	bool		left;
 	bool		right;
+	char		**texture;
+	int			floor_color;
+	int			ceiling_color;
 }				t_program;
 
 int		get_r(int color);
@@ -71,5 +74,11 @@ int		program_finish(t_program *p);
 void	put_pixel_win_img(t_win *win, int x, int y, int color);
 void	clear_win_img(t_win *win, int color);
 int		main_loop(t_program *p);
+int		init_map(t_program *p, int ac, char **av);
+void 	parse_line(t_program *p, char *line);
+bool	is_texture(char *line);
+void	parse_texture(t_program *p, char *line);
+void	parse_color(t_program *p, char *line);
+bool	is_color_line(char *line);
 
 #endif

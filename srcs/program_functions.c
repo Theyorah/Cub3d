@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
+/*   By: frakotov <frakotov@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 08:00:48 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 11:16:22 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/04 12:38:15 by frakotov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static void	st_error_occured(t_program *p, const char *str)
 
 static void	st_init_your_thing(t_program *p, int ac, char **av)
 {
-	(void)ac;
-	(void)av;
-	(void)p;
+	if (init_map(p, ac, av) == 0)
+		st_error_occured(p, "Error map init .·°՞(¯□¯)՞°·.");
 }
 
 static void	st_free_your_thing(t_program *p)
 {
 	(void)p;
+	//free_map(p);
 }
 
 void	init_program(t_program *p, int ac, char **av)

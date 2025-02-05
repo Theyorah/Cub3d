@@ -1,0 +1,217 @@
+utild.c:
+int	get_r(int color)
+{
+	return (color >> 16);
+}
+
+int	get_g(int color)
+{
+	return ((color >> 8) & 0xFF);
+}
+
+int	get_b(int color)
+{
+	return (color & 0xFF);
+}
+
+int	rgb(int r, int g, int b)
+{
+	int	color;
+
+	color = r % 256;
+	color <<= 8;
+	color |= g % 256;
+	color <<= 8;
+	color |= b % 256;
+	return (color);
+}
+
+colors.c:
+int	shade(double mult, int color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = get_r(color) * (1 - mult);
+	g = get_g(color) * (1 - mult);
+	b = get_b(color) * (1 - mult);
+	return (rgb(r, g, b));
+}
+
+int	gradient(double ratio, int pos, int color1, int color2)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = get_r(color1) * (1 - ratio) + get_r(color2) * ratio + pos;
+	g = get_g(color1) * (1 - ratio) + get_g(color2) * ratio + pos;
+	b = get_b(color1) * (1 - ratio) + get_b(color2) * ratio + pos;
+	return (rgb(r, g, b));
+}
+
+int	invert(int color)
+{
+	return (rgb(255 - get_r(color), 255 - get_g(color), 255 - get_b(color)));
+}
+cub3d.c :
+static int	st_key_pressed(int keycode, t_program *p)
+{
+	if (keycode == W_KEY)
+		p->w = 1;
+	if (keycode == A_KEY)
+		p->a = 1;
+	if (keycode == S_KEY)
+		p->s = 1;
+	if (keycode == D_KEY)
+		p->d = 1;
+	if (keycode == LEFT_KEY)
+		p->left = 1;
+	if (keycode == RIGHT_KEY)
+		p->right = 1;
+	return (0);
+}
+
+static int	st_key_released(int keycode, t_program *p)
+{
+	if (keycode == ESC_KEY)
+		program_finish(p);
+	if (keycode == W_KEY)
+		p->w = 0;
+	if (keycode == A_KEY)
+		p->a = 0;
+	if (keycode == S_KEY)
+		p->s = 0;
+	if (keycode == D_KEY)
+		p->d = 0;
+	if (keycode == LEFT_KEY)
+		p->left = 0;
+	if (keycode == RIGHT_KEY)
+		p->right = 0;
+	return (0);
+}
+
+void	put_pixel_win_img(t_win *win, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT)
+	{
+		dst = win->addr + (win->ln * y + (win->bpp / 8) * x);
+		*(unsigned int *)dst = color;
+	}
+}
+
+void	clear_win_img(t_win *win, int color)
+{
+	char	*dst;
+	int		i;
+
+	i = WIDTH * HEIGHT;
+	dst = win->addr;
+	while (--i)
+	{
+		*(unsigned int *)dst = color;
+		dst += win->bpp / 8;
+	}
+}
+
+int	main(int ac, char **av)
+{
+	t_program	p;
+
+	init_program(&p, ac, av);
+	mlx_hook(p.win.win, DESTROY, 0, program_finish, &p);
+	mlx_hook(p.win.win, KEY_PRESSED, 1L << 0, st_key_pressed, &p);
+	mlx_hook(p.win.win, KEY_RELEASED, 1L << 1, st_key_released, &p);
+	mlx_loop_hook(p.mlx, main_loop, &p);
+	mlx_loop(p.mlx);
+	return (0);
+}
+
+gameloop.c :
+static void	st_handle_key(t_program *p)
+{
+	(void)p;
+}
+
+static void	st_update_logic(t_program *p)
+{
+	(void)p;
+}
+
+static void	st_update_rendering(t_program *p)
+{
+	(void)p;
+}
+
+int	main_loop(t_program *p)
+{
+	clear_win_img(&p->win, rgb(0, 0, 0));
+	st_handle_key(p);
+	st_update_logic(p);
+	st_update_rendering(p);
+	mlx_put_image_to_window(p->mlx, p->win.win, p->win.img, 0, 0);
+	return (0);
+}
+
+program_functions.c:
+static void	st_error_occured(t_program *p, const char *str)
+{
+	p->error = 1;
+	printf("%s\n", str);
+	program_finish(p);
+}
+
+static void	st_init_your_thing(t_program *p, int ac, char **av)
+{
+	(if (init_map(p, ac, av) == 0);
+		st_error_occured(p, "Error Malloc");
+}
+
+static void	st_free_your_thing(t_program *p)
+{
+	free_map(p);
+}
+
+void	init_program(t_program *p, int ac, char **av)
+{
+	p->w = 0;
+	p->a = 0;
+	p->s = 0;
+	p->d = 0;
+	p->right = 0;
+	p->left = 0;
+	p->error = 0;
+	p->win.win = NULL;
+	p->win.img = NULL;
+	p->mlx = NULL;
+	st_init_your_thing(p, ac, av);
+	p->mlx = mlx_init();
+	if (p->mlx == NULL)
+		st_error_occured(p, "the function mlx_init crashed (T^T)");
+	p->win.win = mlx_new_window(p->mlx, WIDTH, HEIGHT, "CUB3D");
+	if (p->win.win == NULL)
+		st_error_occured(p, "the function mlx_new_window crashed (T^T)");
+	p->win.img = mlx_new_image(p->mlx, WIDTH, HEIGHT);
+	if (p->win.img == NULL)
+		st_error_occured(p, "the function mlx_new_image crashed (T^T)");
+	p->win.addr = mlx_get_data_addr(p->win.img, &p->win.bpp,
+			&p->win.ln, &p->win.ed);
+}
+
+int	program_finish(t_program *p)
+{
+	st_free_your_thing(p);
+	if (p->mlx != NULL && p->win.img != NULL)
+		mlx_destroy_image(p->mlx, p->win.img);
+	if (p->mlx != NULL && p->win.win != NULL)
+		mlx_destroy_window(p->mlx, p->win.win);
+	if (p->mlx != NULL)
+		mlx_destroy_display(p->mlx);
+	if (p->mlx != NULL)
+		free(p->mlx);
+	exit(p->error);
+	return (0);
+}
