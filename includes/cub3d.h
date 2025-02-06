@@ -6,7 +6,7 @@
 /*   By: frakotov <frakotov@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/05 12:40:52 by frakotov         ###   ########.fr       */
+/*   Updated: 2025/02/06 12:57:58 by frakotov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ typedef struct s_program
 	void		*mlx;
 	t_win		win;
 	int			error;
+	int			map_width;
+	int			map_height;
+	char		*map;
 	bool		w;
 	bool		a;
 	bool		s;

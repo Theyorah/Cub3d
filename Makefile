@@ -6,7 +6,7 @@
 #    By: frakotov <frakotov@student.42antananari    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 09:04:34 by kralison          #+#    #+#              #
-#    Updated: 2025/02/05 12:32:33 by frakotov         ###   ########.fr        #
+#    Updated: 2025/02/06 13:09:42 by frakotov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ LIB_DIR =			libft
 LIBFT =				libft/libft.a
 
 SRCS =				\
-					$(SRCS_DIR)/i_parse_nap.c \
+					$(SRCS_DIR)/i_parse_map_2.c \
+					$(SRCS_DIR)/i_parse_map.c \
 					$(SRCS_DIR)/init.c \
 					$(SRCS_DIR)/colors.c \
 					${SRCS_DIR}/color_utils.c \
