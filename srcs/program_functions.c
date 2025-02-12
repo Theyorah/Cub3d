@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 08:00:48 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 13:08:49 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:43:34 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	init_program(t_program *p, int ac, char **av)
 	p->d = 0;
 	p->right = 0;
 	p->left = 0;
+	p->up = 0;
+	p->down = 0;
 	p->error = 0;
 	p->win.win = NULL;
 	p->win.img = NULL;

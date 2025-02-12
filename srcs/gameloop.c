@@ -6,52 +6,81 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:38:56 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 18:07:06 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:26:00 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 #include <math.h>
 
+double	shift = 0;
+double	shift_pace = 1;
+
 static void	st_handle_key(t_program *p)
 {
 	double	velocity_len;
 
-	p->player.v_dir = -0.005 * p->left + 0.005 * p->right;
-	p->player.v_x =
-		cos(p->player.direction) * p->w +
-		cos(p->player.direction - M_PI / 2) * p->a +
-		cos(p->player.direction) * -1 * p->s +
-		cos(p->player.direction + M_PI / 2) * p->d;
-	p->player.v_y =
-		sin(p->player.direction) * p->w +
-		sin(p->player.direction - M_PI / 2) * p->a +
-		sin(p->player.direction) * -1 * p->s +
-		sin(p->player.direction + M_PI / 2) * p->d;
-	velocity_len = sqrt(pow(p->player.v_x, 2) + pow(p->player.v_y, 2));
+	p->player.r_speed = p->left * 0.008 + p->right * -0.008;
+	if (p->up)
+	{
+		p->player.direction = scale(p->player.direction, 1.01);
+		p->player.plane = scale(p->player.plane, 0.99);
+	}
+	if (p->down)
+	{
+		p->player.direction = scale(p->player.direction, 0.99);
+		p->player.plane = scale(p->player.plane, 1.01);
+	}
+	p->player.vel.x = p->player.direction.x * p->w
+		+ rotate(p->player.direction, -M_PI / 2).x * p->d * !p->a
+		+ p->player.direction.x * -1 * p->s
+		+ rotate(p->player.direction, M_PI / 2).x * p->a * !p->d;
+	p->player.vel.y = p->player.direction.y * p->w
+		+ rotate(p->player.direction, -M_PI / 2).y * p->d * !p->a
+		+ p->player.direction.y * -1 * p->s
+		+ rotate(p->player.direction, M_PI / 2).y * p->a * !p->d;
+	velocity_len = length(p->player.vel);
 	if (velocity_len != 0)
 	{
-		p->player.v_x = (p->player.v_x / velocity_len) * p->player.speed;
-		p->player.v_y = (p->player.v_y / velocity_len) * p->player.speed;
+		p->player.vel.x = (p->player.vel.x / velocity_len) * p->player.speed;
+		p->player.vel.y = (p->player.vel.y / velocity_len) * p->player.speed;
+		shift += 0.4 * shift_pace;
+	}
+	else
+	{
+		shift = 0;
 	}
 }
 
 static void	st_update_logic(t_program *p)
 {
-	p->player.x += p->player.v_x;
+	p->player.pos.x += p->player.vel.x;
 	collision_x(p);
-	p->player.y += p->player.v_y;
+	p->player.pos.y += p->player.vel.y;
 	collision_y(p);
-	p->player.direction += p->player.v_dir;
+	p->player.direction = rotate(p->player.direction, p->player.r_speed);
+	p->player.plane = rotate(p->player.plane, p->player.r_speed);
+	raying(p);
 }
 
 static void	st_update_rendering(t_program *p)
 {
-	draw_map(p);
-	draw_square(p, entity(p->player.x, p->player.y, p->player.size), 0xffffff);
-	draw_square(p, entity(p->player.x + (int)(p->player.size / 2) +
-		cos(p->player.direction) * 20, p->player.y +
-			(int)(p->player.size / 2) + sin(p->player.direction) * 20, 2), 0xffffff);
+	int	i;
+	int	j;
+
+	if (shift >= 10 || shift <= -10)
+	{
+		shift_pace = -shift_pace;
+	}
+	i = -1;
+	while (++i < WIDTH)
+	{
+		j = (double)HEIGHT / 2 - HEIGHT * 80 / length(p->rays[i]) - 1;
+		while (++j < (double)HEIGHT / 2 + HEIGHT * 80 / length(p->rays[i]))
+		{
+			put_pixel_win_img(&p->win, i, j + (int)shift, gradient(length(p->rays[i]) / 3000, 0, rgb(10, 10, 10), rgb(150, 90, 100)));
+		}
+	}
 }
 
 int	main_loop(t_program *p)

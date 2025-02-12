@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:04:14 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 12:18:44 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:00:26 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static int	st_key_pressed(int keycode, t_program *p)
 		p->left = 1;
 	if (keycode == RIGHT_KEY)
 		p->right = 1;
+	if (keycode == UP_KEY)
+		p->up = 1;
+	if (keycode == DOWN_KEY)
+		p->down = 1;
 	return (0);
 }
 
@@ -45,31 +49,11 @@ static int	st_key_released(int keycode, t_program *p)
 		p->left = 0;
 	if (keycode == RIGHT_KEY)
 		p->right = 0;
+	if (keycode == UP_KEY)
+		p->up = 0;
+	if (keycode == DOWN_KEY)
+		p->down = 0;
 	return (0);
-}
-
-t_entity	entity(double x, double y, int size)
-{
-	t_entity	t;
-
-	t.x = x;
-	t.y = y;
-	t.size = size;
-	return (t);
-}
-
-void	clear_win_img(t_win *win, int color)
-{
-	char	*dst;
-	int		i;
-
-	i = WIDTH * HEIGHT;
-	dst = win->addr;
-	while (--i)
-	{
-		*(unsigned int *)dst = color;
-		dst += win->bpp / 8;
-	}
 }
 
 int	main(int ac, char **av)

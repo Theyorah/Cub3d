@@ -1,6 +1,4 @@
-#include <X11/X.h>
 #include <cub3d.h>
-#include <math.h>
 
 void	draw_circle(t_program *p, t_entity t, int color)
 {
@@ -18,56 +16,6 @@ void	draw_circle(t_program *p, t_entity t, int color)
 			i++;
 		}
 		j++;
-	}
-}
-
-void	collision_x(t_program *p)
-{
-	t_entity	t;
-	int	i;
-
-	i = 0;
-	while (p->map[i])
-	{
-		t = entity((i % p->map_width) * BLOCK_SIZE + p->map_x,
-			(int)(i / p->map_width) * BLOCK_SIZE + p->map_y, BLOCK_SIZE);
-		if (p->map[i] == '1')
-		{
-			if (collide(entity(p->player.x, p->player.y, p->player.size), t))
-			{
-				if (p->player.v_x > 0)
-					p->player.x = t.x - p->player.size - 1;
-				if (p->player.v_x < 0)
-					p->player.x = t.x + t.size + 1;
-				p->player.v_x = 0;
-			}
-		}
-		i++;
-	}
-}
-
-void	collision_y(t_program *p)
-{
-	t_entity	t;
-	int	i;
-
-	i = 0;
-	while (p->map[i])
-	{
-		t = entity((i % p->map_width) * BLOCK_SIZE + p->map_x,
-			(int)(i / p->map_width) * BLOCK_SIZE + p->map_y, BLOCK_SIZE);
-		if (p->map[i] == '1')
-		{
-			if (collide(entity(p->player.x, p->player.y, p->player.size), t))
-			{
-				if (p->player.v_y > 0)
-					p->player.y = t.y - p->player.size - 1;
-				if (p->player.v_y < 0)
-					p->player.y = t.y + t.size + 1;
-				p->player.v_y = 0;
-			}
-		}
-		i++;
 	}
 }
 
@@ -101,22 +49,25 @@ void	draw_map(t_program *p)
 	while (i <= p->map_width * p->map_height)
 	{
 		if (p->map[i] == '1')
-			draw_square(p, entity((i % p->map_width) * BLOCK_SIZE + p->map_x,
-				(int)(i / p->map_width) * BLOCK_SIZE + p->map_y,
-					BLOCK_SIZE), rgb(50, 50, 50));
+			draw_square(p, entity((i % p->map_width) * BLOCK_SIZE + p->map_pos.x,
+				(int)(i / p->map_width) * BLOCK_SIZE + p->map_pos.y,
+					BLOCK_SIZE), rgb(90, 60, 60));
 		i++;
 	}
 }
 
 int	init_map(t_program *p)
 {
-	p->map_height = 7;
-	p->map_width = 7;
-	p->map_x = 80;
-	p->map_y = 80;
+	p->map_height = 15;
+	p->map_width = 33;
+	/*p->map_height = 8;*/
+	/*p->map_width = 8;*/
+	p->map_pos.x = 0;
+	p->map_pos.y = 0;
+	/*p->map = ft_memcpy(ft_calloc(p->map_height * p->map_width + 1, sizeof(char)), "111111111000000110001001100000011000N001100000011000000111111111", p->map_width * p->map_height);*/
 	p->map = ft_memcpy(ft_calloc(p->map_height * p->map_width + 1,
 				sizeof(char)),
-					"1111111100N00110010011100011100100110000011111111",
+					"000000010000000000000000000000000        0111111111111111111111111        10000N0000110000000000001        1011000001110000000000001        100100000000000000000000111111111101100000111000000000000110000000001100000111011111111111111110111111111011100000010001    11110111111111011101010010001    11000000110101011100000010001    10000000000000001100000010001    10000000000000001101010010001    1100000111010101111101100000111  11110111 1110101 101111010001    11111111 1111111 111111111111    ",
 						p->map_width * p->map_height);
 	if (p->map == NULL)
 		return (1);
@@ -136,29 +87,15 @@ void	init_player(t_program *p)
 	i = 0;
 	while (p->map[i] != 'N')
 		i++;
-	p->player.direction = 3 * M_PI / 2;
-	p->player.v_x = 0;
-	p->player.v_y = 0;
-	p->player.speed = 0.1;
-	p->player.size = 6;
-	p->player.v_dir = 0;
-	p->player.x = (i % p->map_width) * BLOCK_SIZE + p->map_x + 1;
-	p->player.y = (int)(i / p->map_width) * BLOCK_SIZE + p->map_y + 1;
+	p->player.direction = vector(0, 100);
+	p->player.plane = vector(66.6, 0);
+	p->player.vel.x = 0;
+	p->player.vel.y = 0;
+	p->player.r_speed = 0;
+	p->player.size = BLOCK_SIZE / 4;
+	p->player.pos.x = (i % p->map_width) * BLOCK_SIZE + p->map_pos.x + 1
+		+ (double)BLOCK_SIZE / 2 - (double)p->player.size / 2;
+	p->player.pos.y = (int)(i / p->map_width) * BLOCK_SIZE + p->map_pos.y + 1
+		+ (double)BLOCK_SIZE / 2 - (double)p->player.size / 2;
+	p->player.speed = p->player.size * 0.05;
 }
-
-bool	collide(t_entity t1, t_entity t2)
-{
-	if (t1.x <= t2.x + t2.size)
-	{
-		if (t1.x + t1.size >= t2.x)
-		{
-			if (t1.y <= t2.y + t2.size)
-			{
-				if (t1.y + t1.size >= t2.y)
-					return (1);
-			}
-		}
-	}
-	return (0);
-}
-

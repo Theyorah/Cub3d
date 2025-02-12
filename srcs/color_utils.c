@@ -6,22 +6,11 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:17:01 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 12:18:03 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/05 07:57:13 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-void	put_pixel_win_img(t_win *win, int x, int y, int color)
-{
-	char	*dst;
-
-	if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT)
-	{
-		dst = win->addr + (win->ln * y + (win->bpp / 8) * x);
-		*(unsigned int *)dst = color;
-	}
-}
 
 int	get_r(int color)
 {
@@ -48,4 +37,14 @@ int	rgb(int r, int g, int b)
 	color <<= 8;
 	color |= b % 256;
 	return (color);
+}
+
+int	get_color(t_win *win, int x, int y)
+{
+	char	*dst;
+
+	x = x * (x >= 0) * (x < WIDTH) + (WIDTH - 1) * (x > WIDTH);
+	y = y * (y >= 0) * (y < HEIGHT) + (HEIGHT - 1) * (y > HEIGHT);
+	dst = win->addr + (win->ln * y + (win->bpp / 8) * x);
+	return (*(unsigned int *)dst);
 }
