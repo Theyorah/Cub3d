@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 08:00:48 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/02 11:16:22 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:43:34 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ static void	st_init_your_thing(t_program *p, int ac, char **av)
 {
 	(void)ac;
 	(void)av;
-	(void)p;
+	if (init_map(p) != 0)
+		st_error_occured(p, "map initialization failed (T^T)");
+	init_player(p);
 }
 
 static void	st_free_your_thing(t_program *p)
 {
-	(void)p;
+	free_map(p);
 }
 
 void	init_program(t_program *p, int ac, char **av)
@@ -39,6 +41,8 @@ void	init_program(t_program *p, int ac, char **av)
 	p->d = 0;
 	p->right = 0;
 	p->left = 0;
+	p->up = 0;
+	p->down = 0;
 	p->error = 0;
 	p->win.win = NULL;
 	p->win.img = NULL;

@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:14:44 by kralison          #+#    #+#             */
-/*   Updated: 2025/01/30 13:00:40 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:24:10 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	gradient(double ratio, int pos, int color1, int color2)
 	int	g;
 	int	b;
 
+	if (ratio > 1)
+		ratio = 1;
 	r = get_r(color1) * (1 - ratio) + get_r(color2) * ratio + pos;
 	g = get_g(color1) * (1 - ratio) + get_g(color2) * ratio + pos;
 	b = get_b(color1) * (1 - ratio) + get_b(color2) * ratio + pos;
