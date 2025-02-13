@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 11:56:00 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/12 15:26:03 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/13 08:11:11 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define WIDTH 1080
 # define HEIGHT 720
-# define BLOCK_SIZE 200
+# define BLOCK_SIZE 300
 # define KEY_PRESSED 2
 # define KEY_RELEASED 3
 # define DESTROY 17
@@ -66,11 +66,18 @@ typedef struct s_player
 typedef struct s_raycast_tmp_vars
 {
 	t_vec	raydir;
-	int		ray_index[2];
+	int		ray_i[2];
 	int		steps[2];
 	t_vec	step_length[2];
 	t_vec	p_center;
 }				t_raycast_tmp_vars;
+
+typedef struct	s_ray
+{
+	char	side;
+	double	ratio;
+	double	length;
+}				t_ray;
 
 typedef struct s_win
 {
@@ -89,7 +96,7 @@ typedef struct s_program
 	int					error;
 	t_player			player;
 	t_raycast_tmp_vars	rc;
-	t_vec				rays[WIDTH];
+	t_ray				rays[WIDTH];
 	char				*map;
 	t_vec				map_pos;
 	int					map_width;
