@@ -6,7 +6,7 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:49:56 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/07 13:24:08 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:58:00 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ void	put_pixel_win_img(t_win *win, int x, int y, int color)
 
 void	clear_win_img(t_win *win, int color)
 {
-	char	*dst;
 	int		i;
+	int		j;
 
-	i = WIDTH * HEIGHT;
-	dst = win->addr;
-	while (i--)
+	i = -1;
+	while (++i < WIDTH)
 	{
-		*(unsigned int *)dst = color;
-		dst += win->bpp / 8;
+		j = -1;
+		while (++j < HEIGHT)
+			put_pixel_win_img(win, i, j, color);
 	}
 }
 

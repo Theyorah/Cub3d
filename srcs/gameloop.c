@@ -6,15 +6,11 @@
 /*   By: kralison <kralison@student.42antananarivo  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 09:38:56 by kralison          #+#    #+#             */
-/*   Updated: 2025/02/12 15:26:00 by kralison         ###   ########.fr       */
+/*   Updated: 2025/02/13 08:04:26 by kralison         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-#include <math.h>
-
-double	shift = 0;
-double	shift_pace = 1;
 
 static void	st_handle_key(t_program *p)
 {
@@ -44,11 +40,6 @@ static void	st_handle_key(t_program *p)
 	{
 		p->player.vel.x = (p->player.vel.x / velocity_len) * p->player.speed;
 		p->player.vel.y = (p->player.vel.y / velocity_len) * p->player.speed;
-		shift += 0.4 * shift_pace;
-	}
-	else
-	{
-		shift = 0;
 	}
 }
 
@@ -68,24 +59,20 @@ static void	st_update_rendering(t_program *p)
 	int	i;
 	int	j;
 
-	if (shift >= 10 || shift <= -10)
-	{
-		shift_pace = -shift_pace;
-	}
 	i = -1;
 	while (++i < WIDTH)
 	{
-		j = (double)HEIGHT / 2 - HEIGHT * 80 / length(p->rays[i]) - 1;
-		while (++j < (double)HEIGHT / 2 + HEIGHT * 80 / length(p->rays[i]))
+		j = (int)(HEIGHT / 2) - (HEIGHT * 100) / p->rays[i].length - 1;
+		while (++j < (int)(HEIGHT / 2) + (HEIGHT * 100) / p->rays[i].length)
 		{
-			put_pixel_win_img(&p->win, i, j + (int)shift, gradient(length(p->rays[i]) / 3000, 0, rgb(10, 10, 10), rgb(150, 90, 100)));
+			put_pixel_win_img(&p->win, i, j, gradient(p->rays[i].length / 4000, 0, 0x1a1a1a, rgb(220, 220, 220)));
 		}
 	}
 }
 
 int	main_loop(t_program *p)
 {
-	clear_win_img(&p->win, rgb(150, 90, 100));
+	clear_win_img(&p->win, rgb(220, 220, 220));
 	st_handle_key(p);
 	st_update_logic(p);
 	st_update_rendering(p);
